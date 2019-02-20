@@ -600,11 +600,13 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
 
         thisGraph.circles = newGs;
 
-        newGs.append("circle")
-            .attr("r", String(consts.nodeRadius));
-
-        newGs.each(function (d) {
+        newGs.each(function(d) {
+          if (this.childNodes.length === 0) {
+            d3.select(this)
+              .append("circle")
+              .attr("r", String(consts.nodeRadius));
             thisGraph.insertTitleLinebreaks(d3.select(this), d.title);
+          }
         });
 
     };
